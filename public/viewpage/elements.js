@@ -3,7 +3,11 @@ export const MENU={
     Home:document.getElementById('menu-home'),
     purchases:document.getElementById('menu-purchases'),
     Signout:document.getElementById('menu-signout'),
+    Cart: document.getElementById('menu-cart'),
+    profile:document.getElementById('menu-profile')
 }
+
+export const formSignIn = document.getElementById('form-signin');
 
 export const modalInfobox = {
     modal: new bootstrap.Modal(document.getElementById('modal-infobox'), { backdrop: 'static' }),

@@ -1,4 +1,4 @@
-import * as Elements from './element.js';
+import * as Elements from './elements.js';
 
 export function info(title,body ,closeModal) {
     if (closeModal) closeModal.hide();
