@@ -1,10 +1,12 @@
-export const MENU={
+export const root = document.getElementById('root');
+
+export const MENU = {
     signIn: document.getElementById('menu-signin'),
-    Home:document.getElementById('menu-home'),
-    purchases:document.getElementById('menu-purchases'),
-    Signout:document.getElementById('menu-signout'),
+    Home: document.getElementById('menu-home'),
+    Purchases: document.getElementById('menu-purchases'),
+    Signout: document.getElementById('menu-signout'),
     Cart: document.getElementById('menu-cart'),
-    profile:document.getElementById('menu-profile')
+    Profile: document.getElementById('menu-profile')
 }
 
 export const formSignIn = document.getElementById('form-signin');
