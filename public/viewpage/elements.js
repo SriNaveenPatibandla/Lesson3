@@ -6,7 +6,8 @@ export const MENU = {
     Purchases: document.getElementById('menu-purchases'),
     Signout: document.getElementById('menu-signout'),
     Cart: document.getElementById('menu-cart'),
-    Profile: document.getElementById('menu-profile')
+    Profile: document.getElementById('menu-profile'),
+    CartItemCount:document.getElementById('menu-cart-item-count'),
 }
 
 export const formSignIn = document.getElementById('form-signin');

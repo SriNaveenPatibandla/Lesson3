@@ -4,6 +4,7 @@ import * as Util from './util.js'
 import { getProductList } from "../controller/firebase_controller.js";
 import { DEV } from '../model/constants.js';
 import { currentUser } from "../controller/firebase_auth.js";
+import { cart } from "./cart_page.js";
 
 export function addEventListeners() {
     MENU.Home.addEventListener('click', async () => {
@@ -31,6 +32,28 @@ export async function home_page() {
     }
 
     root.innerHTML = html;
+
+    const productForms = document.getElementsByClassName('form-product-qty');
+    for (let i = 0; i < productForms.length; i++) {
+        productForms[i].addEventListener('submit', e => {
+            e.preventDefault();
+            const p = products[e.target.index.value];
+            const submitter =e.target.submitter;
+            if(submitter == 'DEC'){
+                cart.removeItem(p);
+                if(p.qty > 0) --p.qty;
+            }else if(submitter =='INC'){
+                cart.addItem(p);
+                p.qty = p.qty == null ? 1 :p.qty + 1;
+            }else {
+                if(DEV) console.log(e);
+                return;
+            }
+            const updateQty =p.qty == null || p.qty == 0 ? 'Add':p.qty;
+            document.getElementById(`item-count-${p.docId}`).innerHTML =updateQty;
+            MENU.CartItemCount.innerHTML=`${cart.getTotalQty()}`;
+        });
+    }
 }
 
 function buildProductView(product, index) {
@@ -48,6 +71,7 @@ function buildProductView(product, index) {
             <input type="hidden" name="index" value="${index}">
             <button class="btn btn-outline-danger" type="submit"
                 onclick="this.form.submitter='DEC'">&minus;</button>
+                <div id="item-count-${product.docId}"
                 <div class="container rounded text-center text-white bg-primary d-inline-block w-50">
                 ${product.qty == null || product.qty == 0 ? 'Add' : product.qty}
                 </div>

@@ -3,8 +3,6 @@ export class ShoppingCart {
         this.uid = uid;
         this.items = []; //array of product class objects
 
-
-
     }
     addItem(product) {
         const index = this.items.findIndex(e => product.docId == e.docId);
