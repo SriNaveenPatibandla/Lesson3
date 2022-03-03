@@ -8,6 +8,14 @@ export class Product {
         this.qty = Number.isInteger(data.qty) ? data.qty : null;
     }
 
+    clone(){
+        const copyData =this.serialize();
+        const p= new Product(copyData);
+        p.set_docId(this.docId);
+        return p;
+    }
+
+
     set_docId(id) {
         this.docId = id;
     }
