@@ -1,9 +1,9 @@
 import { MENU, root } from "./elements.js";
 import { ROUTE_PATHNAMES } from "../controller/route.js";
-import * as Util from './util.js'
 import { ShoppingCart } from "../model/shopping_cart.js";
 import { currentUser } from "../controller/firebase_auth.js";
-import { currency } from "./util.js";
+import { currency, disableButton, enableButton } from "./util.js";
+import { home_page } from "./home_page.js";
 
 export function addEventListeners() {
     MENU.Cart.addEventListener('click', async () => {
@@ -58,7 +58,23 @@ export async function cart_page() {
     });
 
     html += '</tbody></table>';
+
+    html += `
+    <div class= "fs-3">TOTAL:${currency(cart.getTotalPrice())}</div>
+    `;
+    html += `
+    <button id="button-checkout" class="btn btn-outline-primary">Check Out</button>
+    <button id="button-continue-shopping" class="btn btn-outline-secondary">Contiune shopping</button>
+    `;
     root.innerHTML = html;
+
+    const continueButton = document.getElementById('button-continue-shopping');
+    continueButton.addEventListener('click', async() => {
+        history.pushState(null, null, ROUTE_PATHNAMES.HOME);
+        const label =disableButton(continueButton);
+        await home_page();
+        enableButton(continueButton,label);
+    })
 }
 
 export function initShoppingCart() {
