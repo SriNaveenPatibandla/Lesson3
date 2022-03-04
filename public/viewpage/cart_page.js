@@ -2,8 +2,9 @@ import { MENU, root } from "./elements.js";
 import { ROUTE_PATHNAMES } from "../controller/route.js";
 import { ShoppingCart } from "../model/shopping_cart.js";
 import { currentUser } from "../controller/firebase_auth.js";
-import { currency, disableButton, enableButton } from "./util.js";
+import { currency, disableButton, enableButton, info } from "./util.js";
 import { home_page } from "./home_page.js";
+import { DEV } from "../model/constants.js";
 
 export function addEventListeners() {
     MENU.Cart.addEventListener('click', async () => {
@@ -69,12 +70,30 @@ export async function cart_page() {
     root.innerHTML = html;
 
     const continueButton = document.getElementById('button-continue-shopping');
-    continueButton.addEventListener('click', async() => {
+    continueButton.addEventListener('click', async () => {
         history.pushState(null, null, ROUTE_PATHNAMES.HOME);
-        const label =disableButton(continueButton);
+        const label = disableButton(continueButton);
         await home_page();
-        enableButton(continueButton,label);
+        enableButton(continueButton, label);
     })
+
+    const checkoutButton = document.getElementById('button-checkout');
+    checkoutButton.addEventListener('click', async () => {
+        const label = disableButton(checkoutButton);
+        try {
+            // charging is done! ==> students in term  project
+            // save to Firebase (await)
+            info('Success!', 'CheckOut Complete!');
+            cart.clear();
+            MENU.CartItemCount.innerHTML = 0;
+            history.pushState(null, null, ROUTE_PATHNAMES.HOME);
+            await home_page();
+        } catch (e) {
+            if(DEV) console.log(e);
+            info('checout Failed',JSON.stringify(e));
+        }
+        enableButton(checkoutButton, label);
+    });
 }
 
 export function initShoppingCart() {

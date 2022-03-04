@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site":"lesson3-naveen",
     "public": "public",
     "ignore": [
       "firebase.json",
