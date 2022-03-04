@@ -28,7 +28,7 @@ export class Product {
             price: this.price,
             summary: this.summary,
             imageName: this.imageName,
-            imageURl: this.imageURL,
+            imageURL: this.imageURL,
             qty: this.qty,
         }
     }
